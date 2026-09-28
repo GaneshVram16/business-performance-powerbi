@@ -1,0 +1,23 @@
+-- Core DAX measures
+Total Revenue = SUM(FactSales[Revenue])
+
+Total Profit = SUM(FactSales[Profit])
+
+Profit Margin % = DIVIDE([Total Profit], [Total Revenue])
+
+Order Count = DISTINCTCOUNT(FactSales[OrderID])
+
+Average Order Value = DIVIDE([Total Revenue], [Order Count])
+
+Units Sold = SUM(FactSales[Quantity])
+
+SLA Compliance % = DIVIDE(SUM(FactSales[SLACompliant]), COUNTROWS(FactSales))
+
+Revenue LY =
+CALCULATE(
+    [Total Revenue],
+    SAMEPERIODLASTYEAR(DimDate[DateKey])
+)
+
+YoY Revenue Growth % =
+DIVIDE([Total Revenue] - [Revenue LY], [Revenue LY])
